@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Maskable icon: uses full canvas with safe zone padding (80% inner area) -->
+  <rect width="512" height="512" fill="#0a0a0a"/>
+  <circle cx="256" cy="220" r="80" fill="none" stroke="#3b82f6" stroke-width="12"/>
+  <path d="M256 155 L256 285" stroke="#3b82f6" stroke-width="9" stroke-linecap="round"/>
+  <path d="M256 285 L226 252" stroke="#3b82f6" stroke-width="9" stroke-linecap="round"/>
+  <path d="M256 285 L286 252" stroke="#3b82f6" stroke-width="9" stroke-linecap="round"/>
+  <text x="256" y="380" text-anchor="middle" fill="#e4e4e7" font-family="sans-serif" font-size="40" font-weight="bold">RoadPilot</text>
+</svg>
