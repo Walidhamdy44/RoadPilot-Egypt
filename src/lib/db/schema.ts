@@ -9,6 +9,7 @@ import {
   pgTable,
   text,
   timestamp,
+  boolean,
   doublePrecision,
   integer,
   json,
@@ -21,10 +22,10 @@ import type { GPSTracePoint, StopEvent } from "@/features/trip/domain/trip-types
 // ─── Users ───────────────────────────────────────────────────────────────────
 
 export const users = pgTable("users", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  emailVerified: timestamp("email_verified"),
+  emailVerified: boolean("email_verified").notNull().default(false),
   image: text("image"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -34,7 +35,7 @@ export const users = pgTable("users", {
 
 export const sessions = pgTable("sessions", {
   id: text("id").primaryKey(),
-  userId: uuid("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   token: text("token").notNull().unique(),
@@ -48,8 +49,8 @@ export const sessions = pgTable("sessions", {
 // ─── Accounts (Better Auth social/OAuth providers) ───────────────────────────
 
 export const accounts = pgTable("accounts", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  userId: uuid("user_id")
+  id: text("id").primaryKey(),
+  userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   accountId: text("account_id").notNull(),
@@ -68,7 +69,7 @@ export const accounts = pgTable("accounts", {
 // ─── Verifications (Better Auth email verification tokens) ───────────────────
 
 export const verifications = pgTable("verifications", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expires_at").notNull(),
@@ -82,7 +83,7 @@ export const trips = pgTable(
   "trips",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    userId: uuid("user_id")
+    userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     startTimestamp: timestamp("start_timestamp").notNull(),
@@ -121,7 +122,7 @@ export const tripAnalytics = pgTable(
   "trip_analytics",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    userId: uuid("user_id")
+    userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     periodType: text("period_type").notNull(), // 'weekly' | 'monthly'
